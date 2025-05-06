@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Engineering Dashboard</title>
+    <link rel="stylesheet" href="./style2.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+</head>
+<body>
+
+
+<div class="sidebar">
+
+<h2> ENGINEERING <br> DASHBOARD </h2>
+
+  <a href="./index.html" class="nav-button">Electrical</a>
+  <a href="./water.html" class="nav-button">Water</a>
+  <a href="./fuel.html" class="nav-button">Fuel</a>
+</div>
+
+
+
+
+  <div class="content">
+<header>
+  <h1>Water Consumption </h1>
+</header>
+
+<label for="yearSelect"><b>Select Year:</b></label>
+  <select id="yearSelect"></select>
+
+<div class="chart-container">
+  <!-- Password prompt -->
+  <div id="passwordPrompt" style="margin-bottom: 20px;">
+    <label for="editPassword">Enter password to edit the data:</label>
+    <input type="password" id="editPassword" />
+    <button class="button" onclick="verifyPassword()">Unlock</button>
+    <p id="passwordError" style="color: red; display: none;">Incorrect password.</p>
+  </div>
+
+  <!-- Editable form -->
+  <div id="formSection" style="display: none; margin-bottom: 20px;">
+    <form id="consumptionForm" onsubmit="handleSubmit(event)">
+      <div id="inputGroups">
+        <!-- Example input -->
+        <input type="text" name="exampleField" placeholder="Enter data" required />
+      </div>
+      <button class="button" type="submit">Save & Lock</button>
+    </form>
+  </div>
+</div>
+
+
+  <!-- Separate Bar Charts -->
+
+  <div class="chart-container1">
+
+
+	      <div class="chart-container"><canvas id="solidsChart"></canvas></div>
+	      <div class="chart-container"><canvas id="liquidsChart"></canvas></div>
+  	      <div class="chart-container"><canvas id="adminChart"></canvas></div>
+</div>
+<br>
+  <div class="chart-container1">
+	      <div class="chart-container"><canvas id="lineChart"></canvas></div>
+	      <div class="chart-container2"><canvas id="pieChart"></canvas></div>
+	      <div class="chart-container"><canvas id="yearlyLineChart"></canvas></div>
+
+
+
+</div>
+	  
+
+<footer>
+  <div class="totals" id="totalsDisplay"></div>
+</footer>
+
+<script src="./script2.js"> </script>
+
+<script>
+  const CORRECT_PASSWORD = "2025"; // Change this to your secure password
+
+  function verifyPassword() {
+    const input = document.getElementById("editPassword").value;
+    const error = document.getElementById("passwordError");
+
+    if (input === CORRECT_PASSWORD) {
+      document.getElementById("formSection").style.display = "block";
+      document.getElementById("passwordPrompt").style.display = "none";
+      error.style.display = "none";
+    } else {
+      error.style.display = "block";
+    }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Do your actual save logic here (e.g., send data to server via fetch/ajax)
+
+    // Lock the form again
+    document.getElementById("formSection").style.display = "none";
+    document.getElementById("passwordPrompt").style.display = "block";
+    document.getElementById("editPassword").value = ""; // Clear password field
+    alert("Data saved and form locked.");
+  }
+</script>
+
+</body>
+</html>
